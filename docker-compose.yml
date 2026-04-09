@@ -6,7 +6,7 @@ services:
       context: ./frontend/frontend
     container_name: frontend
     ports:
-      - "80:80"
+      - "6000:80"
     depends_on:
       - backend
 
@@ -29,7 +29,7 @@ services:
       context: ./database
     container_name: database
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: akash1311
       MYSQL_DATABASE: quizdb

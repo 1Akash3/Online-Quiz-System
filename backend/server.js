@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const routes = require("./routes/quizRoutes");
+require("./config/db");
 
 const app = express();
 

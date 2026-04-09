@@ -12,7 +12,7 @@ export default function QuizPage({ category, name, onFinish }) {
   // Load Questions
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/questions/${category}`)
+      .get(`http://backend:5000/api/questions/${category}`)
       .then((res) => setQuestions(res.data))
       .catch((err) => console.error(err));
   }, [category]);
@@ -25,7 +25,7 @@ export default function QuizPage({ category, name, onFinish }) {
       setTime((prev) => {
         if (prev <= 1) {
           clearInterval(timerRef.current);
-          forceSubmit(); // AUTO SUBMIT
+          forceSubmit();
           return 0;
         }
         return prev - 1;
@@ -43,7 +43,7 @@ export default function QuizPage({ category, name, onFinish }) {
     }));
   };
 
-  // FORCE SUBMIT (cannot fail)
+  // Submit quiz
   const forceSubmit = () => {
     if (hasSubmitted.current) return;
 
@@ -51,17 +51,16 @@ export default function QuizPage({ category, name, onFinish }) {
     clearInterval(timerRef.current);
 
     axios
-      .post("http://localhost:5000/api/submit", {
+      .post("http://backend:5000/api/submit", {
         name,
         category,
         answers,
       })
       .then((res) => {
-        onFinish(res.data); // redirect
+        onFinish(res.data);
       })
       .catch((err) => {
         console.error("Submit failed:", err);
-        // Even if backend fails, still redirect with zero score
         onFinish({ score: 0, total: questions.length });
       });
   };
