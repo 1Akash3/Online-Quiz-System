@@ -1,0 +1,20 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read   # ✅ important fix
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Images
+        run: docker compose build
