@@ -1,0 +1,6 @@
+FROM mysql:8
+
+ENV MYSQL_ROOT_PASSWORD=akash1311
+ENV MYSQL_DATABASE=quizdb
+
+COPY init.sql /docker-entrypoint-initdb.d/

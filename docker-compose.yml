@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend/frontend
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - database
+    environment:
+      DB_HOST: database
+      DB_USER: root
+      DB_PASSWORD: akash1311
+      DB_NAME: quizdb
+
+  database:
+    build:
+      context: ./database
+    container_name: database
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: akash1311
+      MYSQL_DATABASE: quizdb
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
